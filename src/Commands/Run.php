@@ -4,7 +4,6 @@ namespace Infinitypaul\LaravelUptime\Commands;
 
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Infinitypaul\LaravelUptime\Commands\Traits\CanForce;
 use Infinitypaul\LaravelUptime\Endpoint;
 use Infinitypaul\LaravelUptime\Scheduler\Kernel;
@@ -50,7 +49,7 @@ class Run extends Command
         $kernel = new Kernel();
         //$endpoints = Endpoint::get();
 
-        Endpoint::orderBy('id')->chunk(100, function ($endpoints) use ($kernel) {;
+        Endpoint::orderBy('id')->chunk(100, function ($endpoints) use ($kernel) {
             foreach ($endpoints as $endpoint) {
                 $kernel->add(
                     new PingEndPoint($endpoint, $this->client)
@@ -60,6 +59,5 @@ class Run extends Command
             }
             $kernel->run();
         });
-
     }
 }

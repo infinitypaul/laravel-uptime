@@ -46,8 +46,6 @@ class Status extends Command
             })->toArray()
             );
         });
-
-
     }
 
     protected function getEndpointStatus(Endpoint $endpoint)
