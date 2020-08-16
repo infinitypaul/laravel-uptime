@@ -4,9 +4,12 @@ namespace Infinitypaul\LaravelUptime\Commands;
 
 use Illuminate\Console\Command;
 use Infinitypaul\LaravelUptime\Endpoint;
+use Infinitypaul\LaravelUptime\Tasks\PingEndPoint;
 
 class AddEndPoint extends Command
 {
+
+    protected $uri;
     /**
      * The name and signature of the console command.
      *
@@ -38,20 +41,34 @@ class AddEndPoint extends Command
      */
     public function handle()
     {
-        $frequency = is_numeric($this->option('frequency')) ? $this->option('frequency') : 5;
-        if (! filter_var($uri = $this->argument('endpoint'), FILTER_VALIDATE_URL)) {
-            $this->error("Endpoint {$uri} is not a valid uri.");
+        $this->validateEndpoint();
 
-            return;
-        }
+        $frequency = is_numeric($this->option('frequency')) ? $this->option('frequency') : 5;
 
         Endpoint::create([
-            'uri' =>$uri = $this->argument('endpoint'),
+            'uri' => $this->uri,
             'frequency' => $frequency,
         ]);
 
-        $this->info("Endpoint {$uri} is now being monitored.");
+        $this->info("Endpoint {$this->uri} is now being monitored.");
 
         $this->call('uptime:status');
+    }
+
+    protected function validateEndpoint(){
+        $this->checkSelf();
+
+        if (! filter_var($this->uri, FILTER_VALIDATE_URL)) {
+            $this->error("Endpoint {$this->uri} is not a valid uri.");
+            die();
+        }
+    }
+
+    protected function checkSelf(){
+        if($this->argument('endpoint') === 'own') {
+            $this->uri = config('app.url');
+            return;
+        }
+            $this->uri = $this->argument('endpoint');
     }
 }
