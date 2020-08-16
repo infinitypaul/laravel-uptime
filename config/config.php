@@ -6,5 +6,5 @@
 return [
 
     'endpoints_table' => 'endpoints',
-    'statuses_table' => 'statuses'
+    'statuses_table' => 'statuses',
 ];

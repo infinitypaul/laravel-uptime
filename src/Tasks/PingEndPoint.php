@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Infinitypaul\LaravelUptime\Tasks;
-
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -25,26 +23,28 @@ class PingEndPoint extends Task
         $this->endpoint = $endpoint;
     }
 
-    public function handle(){
+    public function handle()
+    {
         try {
             $response = $this->client->request('GET', $this->endpoint->uri);
-        } catch (RequestException $exception){
+        } catch (RequestException $exception) {
             $response = $exception->getResponse();
         }
 
         $this->endpoint->statuses()->create([
-            'status_code' => $response->getStatusCode()
+            'status_code' => $response->getStatusCode(),
         ]);
 
         $this->dispatchEvents();
     }
 
-    protected function dispatchEvents(){
-        if($this->endpoint->status->isDown()){
+    protected function dispatchEvents()
+    {
+        if ($this->endpoint->status->isDown()) {
             event(new EndpointIsDown($this->endpoint));
         }
 
-        if($this->endpoint->isBackUp()){
+        if ($this->endpoint->isBackUp()) {
             event(new EndpointIsBackUp($this->endpoint));
         }
     }

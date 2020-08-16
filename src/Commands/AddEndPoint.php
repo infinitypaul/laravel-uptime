@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Infinitypaul\LaravelUptime\Commands;
-
 
 use Illuminate\Console\Command;
 use Infinitypaul\LaravelUptime\Endpoint;
@@ -15,7 +13,6 @@ class AddEndPoint extends Command
      * @var string
      */
     protected $signature = 'endpoint:add {endpoint :  The Endpoint To Monitor} {--f|frequency=5 : The Frequency To Check This Endpoint, In Minutes} ';
-
 
     /**
      * The console command description.
@@ -42,19 +39,19 @@ class AddEndPoint extends Command
     public function handle()
     {
         $frequency = is_numeric($this->option('frequency')) ? $this->option('frequency') : 5;
-        if (!filter_var($uri = $this->argument('endpoint'), FILTER_VALIDATE_URL)) {
+        if (! filter_var($uri = $this->argument('endpoint'), FILTER_VALIDATE_URL)) {
             $this->error("Endpoint {$uri} is not a valid uri.");
+
             return;
         }
 
         Endpoint::create([
             'uri' =>$uri = $this->argument('endpoint'),
-            'frequency' => $frequency
+            'frequency' => $frequency,
         ]);
 
         $this->info("Endpoint {$uri} is now being monitored.");
 
         $this->call('uptime:status');
-
     }
 }

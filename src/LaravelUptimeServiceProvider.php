@@ -27,8 +27,6 @@ class LaravelUptimeServiceProvider extends ServiceProvider
                 __DIR__.'/../config/config.php' => config_path('uptime.php'),
             ], 'config');
 
-
-
             // Publishing the views.
             /*$this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-uptime'),
@@ -44,13 +42,13 @@ class LaravelUptimeServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/lang' => resource_path('lang/vendor/laravel-uptime'),
             ], 'lang');*/
 
-             //Registering package commands.
-             $this->commands([
-                 AddEndPoint::class,
-                 Run::class,
-                 \Infinitypaul\LaravelUptime\Commands\Status::class,
-                 RemoveEndPoints::class
-             ]);
+            //Registering package commands.
+            $this->commands([
+                AddEndPoint::class,
+                Run::class,
+                \Infinitypaul\LaravelUptime\Commands\Status::class,
+                RemoveEndPoints::class,
+            ]);
         }
     }
 

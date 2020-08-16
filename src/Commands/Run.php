@@ -1,9 +1,6 @@
 <?php
 
-
 namespace Infinitypaul\LaravelUptime\Commands;
-
-
 
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
@@ -22,8 +19,7 @@ class Run extends Command
      *
      * @var string
      */
-    protected $signature = "uptime:run {--F|force}";
-
+    protected $signature = 'uptime:run {--F|force}';
 
     /**
      * The console command description.
@@ -31,7 +27,6 @@ class Run extends Command
      * @var string
      */
     protected $description = 'Run The Whole Endpoint';
-
 
     /**
      * Create a new command instance.
@@ -52,9 +47,9 @@ class Run extends Command
     public function handle()
     {
         $kernel = new Kernel();
-        $endpoints  = Endpoint::get();
-        ;
-        foreach ($endpoints as $endpoint){
+        $endpoints = Endpoint::get();
+
+        foreach ($endpoints as $endpoint) {
             $kernel->add(
                 new PingEndPoint($endpoint, $this->client)
             )->everyMinutes(
@@ -64,6 +59,4 @@ class Run extends Command
 
         $kernel->run();
     }
-
-
 }

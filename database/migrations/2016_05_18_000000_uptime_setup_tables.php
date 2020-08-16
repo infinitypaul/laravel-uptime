@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 class UptimeSetupTables extends Migration
 {
-    public function up(){
+    public function up()
+    {
         Schema::create(config('uptime.endpoints_table'), function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->text('uri');
