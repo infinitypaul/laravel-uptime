@@ -4,11 +4,9 @@ namespace Infinitypaul\LaravelUptime\Commands;
 
 use Illuminate\Console\Command;
 use Infinitypaul\LaravelUptime\Endpoint;
-use Infinitypaul\LaravelUptime\Tasks\PingEndPoint;
 
 class AddEndPoint extends Command
 {
-
     protected $uri;
     /**
      * The name and signature of the console command.
@@ -55,20 +53,23 @@ class AddEndPoint extends Command
         $this->call('uptime:status');
     }
 
-    protected function validateEndpoint(){
+    protected function validateEndpoint()
+    {
         $this->checkSelf();
 
         if (! filter_var($this->uri, FILTER_VALIDATE_URL)) {
             $this->error("Endpoint {$this->uri} is not a valid uri.");
-            die();
+            exit();
         }
     }
 
-    protected function checkSelf(){
-        if($this->argument('endpoint') === 'own') {
+    protected function checkSelf()
+    {
+        if ($this->argument('endpoint') === 'own') {
             $this->uri = config('app.url');
+
             return;
         }
-            $this->uri = $this->argument('endpoint');
+        $this->uri = $this->argument('endpoint');
     }
 }
