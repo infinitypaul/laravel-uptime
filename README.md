@@ -1,4 +1,4 @@
-# Stay Up And Running
+# Laravel Uptime - Stay Up And Running
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/infinitypaul/laravel-uptime.svg?style=flat-square)](https://packagist.org/packages/infinitypaul/laravel-uptime)
 [![Build Status](https://img.shields.io/travis/infinitypaul/laravel-uptime/master.svg?style=flat-square)](https://travis-ci.org/infinitypaul/laravel-uptime)
@@ -53,6 +53,11 @@ Once Package is Installed, The Following Commands Will Be Available To You
  php artisan endpoint:add https://infinitypaul.com -f 5
 ```
 Add Infinitypaul.com as a frequency of 5
+
+``` bash
+ php artisan endpoint:add own -f 5
+```
+Add The Base URL of your laravel project
 
 ## Display All Endpoint
 ```bash
