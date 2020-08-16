@@ -7,6 +7,8 @@
 
 Keep track of critical endpoints with this command-line uptime monitor. Add an endpoint, set a frequency and listen to an event if something goes down.
 
+<p align="center"><img src="https://raw.githubusercontent.com/infinitypaul/laravel-uptime/master/screen.jpeg" /></p>
+
 ## Installation
 
 You can install the package via composer:
