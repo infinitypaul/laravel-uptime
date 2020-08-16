@@ -1,4 +1,5 @@
 <?php
+
 namespace Infinitypaul\LaravelUptime;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,18 +18,18 @@ class Endpoint extends Model
         $this->table = Config::get('uptime.endpoints_table');
     }
 
-    public function statuses(){
+    public function statuses()
+    {
         return $this->hasMany(Status::class)->orderBy('created_at', 'desc');
     }
 
-    public function status(){
+    public function status()
+    {
         return $this->hasOne(Status::class)->orderBy('created_at', 'desc');
     }
 
-
-    public function isBackUp(){
+    public function isBackUp()
+    {
         return $this->status->isUp() && ($this->statuses->get(1) && $this->statuses->get(1)->isDown());
     }
-
-
 }

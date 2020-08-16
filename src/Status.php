@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Infinitypaul\LaravelUptime;
-
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
@@ -20,11 +18,13 @@ class Status extends Model
         $this->table = Config::get('uptime.statuses_table');
     }
 
-    public function isUp(){
+    public function isUp()
+    {
         return substr((string) $this->status_code, 0, 1) === '2';
     }
 
-    public function isDown(){
-        return !$this->isUp();
+    public function isDown()
+    {
+        return ! $this->isUp();
     }
 }

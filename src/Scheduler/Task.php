@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Infinitypaul\LaravelUptime\Scheduler;
-
 
 use Carbon\Carbon;
 use Cron\CronExpression;
@@ -13,8 +11,8 @@ abstract class Task
 
     abstract public function handle();
 
-
-    public function isDueToRun(){
+    public function isDueToRun()
+    {
         return CronExpression::factory($this->expression)
             ->isDue(Carbon::now());
     }
