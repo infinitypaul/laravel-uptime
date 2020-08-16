@@ -37,15 +37,17 @@ class Status extends Command
         }
         $headers = ['ID', 'URI', 'Frequency', 'Last Checked', 'Human Date', 'Status', 'Response Code'];
 
-        $endpoints = Endpoint::with('statuses')->get();
-
-        $this->table($headers, $endpoints->map(function ($endpoint) {
-            return array_merge(
-                $endpoint->only(['id', 'uri', 'frequency']),
-                $endpoint->status ? $this->getEndpointStatus($endpoint) : []
+        Endpoint::with('statuses')->chunk(100, function ($endpoints) use ($headers) {
+            $this->table($headers, $endpoints->map(function ($endpoint) {
+                return array_merge(
+                    $endpoint->only(['id', 'uri', 'frequency']),
+                    $endpoint->status ? $this->getEndpointStatus($endpoint) : []
+                );
+            })->toArray()
             );
-        })->toArray()
-        );
+        });
+
+
     }
 
     protected function getEndpointStatus(Endpoint $endpoint)
