@@ -92,6 +92,14 @@ php artisan uptime:run --force
 
 Ping All The Endpoint And Get The Up Or Down Status Irrespective Of Their Frequency
 
+### Scheduling
+
+You can add the run command in your task scheduling to run every minute
+
+```
+php artisan uptime:run
+```
+
 ### Endpoints Down/Up Events
 
 If you need to run additional processes when an endpoint is down or back up, you can Listen for these events:
